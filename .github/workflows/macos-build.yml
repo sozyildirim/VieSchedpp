@@ -19,9 +19,6 @@ jobs:
         run: |
           /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
           brew install qt
-          
-      - name: Install miniz
-        run: brew install miniz
         
       - name: Install Boost
         run: brew install boost
@@ -38,6 +35,7 @@ jobs:
           mkdir -p build
           cd build
           cmake .. -DCMAKE_PREFIX_PATH=$(brew --prefix qt) \
+            -DUSE_MINIZ=OFF \
             -DBOOST_ROOT=$(brew --prefix boost) \
             -DBoost_NO_BOOST_CMAKE=ON \
             -DBoost_NO_SYSTEM_PATHS=ON \

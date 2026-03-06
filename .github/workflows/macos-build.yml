@@ -1,0 +1,52 @@
+name: Build VieSched++ macOS
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:  # allows manual trigger
+
+jobs:
+  build-macos:
+    runs-on: macos-latest
+
+    steps:
+      # 1. Checkout source
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # 2. Install Homebrew and Qt6
+      - name: Install Qt
+        run: |
+          /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+          brew install qt
+
+      # 3. Install CMake
+      - name: Install build tools
+        run: |
+          brew install cmake git
+
+      # 4. Configure the project
+      - name: Configure project
+        run: |
+          mkdir -p build
+          cd build
+          cmake .. -DCMAKE_PREFIX_PATH=$(brew --prefix qt)
+
+      # 5. Build project
+      - name: Build project
+        run: |
+          cd build
+          make -j$(sysctl -n hw.ncpu)
+
+      # 6. Deploy Qt libraries
+      - name: Deploy Qt
+        run: |
+          cd build
+          /usr/local/opt/qt/bin/macdeployqt VieSched++.app
+
+      # 7. Upload compiled app
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: VieSched-macos
+          path: build/VieSched++.app

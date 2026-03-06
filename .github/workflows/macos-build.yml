@@ -23,17 +23,24 @@ jobs:
       - name: Install Boost
         run: brew install boost
 
+
       # 3. Install CMake
       - name: Install build tools
         run: |
-          brew install cmake git boost
+          brew install cmake git
 
       # 4. Configure the project
       - name: Configure project
         run: |
           mkdir -p build
           cd build
-          cmake .. -DCMAKE_PREFIX_PATH=$(brew --prefix qt)
+          cmake .. -DCMAKE_PREFIX_PATH=$(brew --prefix qt) \
+            -DBOOST_ROOT=$(brew --prefix boost) \
+            -DBoost_NO_SYSTEM_PATHS=ON \
+            -DBoost_USE_STATIC_LIBS=OFF \
+            -DBoost_USE_MULTITHREADED=ON \
+            -DBoost_USE_STATIC_RUNTIME=OFF \
+            -DBoost_COMPONENTS=system,thread,filesystem
 
       # 5. Build project
       - name: Build project

@@ -23,7 +23,7 @@ jobs:
       # 3. Install CMake
       - name: Install build tools
         run: |
-          brew install cmake git
+          brew install cmake git boost
 
       # 4. Configure the project
       - name: Configure project

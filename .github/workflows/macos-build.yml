@@ -22,7 +22,11 @@ jobs:
         
       - name: Install Boost
         run: brew install boost
-
+        
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
 
       # 3. Install CMake
       - name: Install build tools

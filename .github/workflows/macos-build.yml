@@ -20,6 +20,9 @@ jobs:
           /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
           brew install qt
 
+      - name: Install Boost
+        run: brew install boost
+
       # 3. Install CMake
       - name: Install build tools
         run: |

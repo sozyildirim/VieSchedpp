@@ -1,4 +1,4 @@
-name: Build VieSched++ macOS
+name: Build VieSched++ macOS2
 
 on:
 workflow_dispatch:

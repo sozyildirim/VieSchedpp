@@ -23,7 +23,7 @@ jobs:
           brew install qt
         
       - name: Install Boost
-        run: brew install boost sofa
+        run: brew install boost
     
       # 3. Install CMake
       - name: Install build tools

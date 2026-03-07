@@ -28,6 +28,9 @@ jobs:
         with:
           submodules: recursive
 
+      - name: Install Sofa
+        run: brew install sofa
+    
       # 3. Install CMake
       - name: Install build tools
         run: |

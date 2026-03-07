@@ -23,7 +23,7 @@ jobs:
           brew install qt
         
       - name: Install Boost
-        run: brew install boost
+        run: brew install boost sofa
     
       # 3. Install CMake
       - name: Install build tools
@@ -38,12 +38,13 @@ jobs:
           cmake .. -DCMAKE_PREFIX_PATH=$(brew --prefix qt) \
             -DUSE_MINIZ=OFF \
             -DBOOST_ROOT=$(brew --prefix boost) \
+            -DSOFA_ROOT="$(brew --prefix sofa) \
             -DBoost_NO_BOOST_CMAKE=ON \
             -DBoost_NO_SYSTEM_PATHS=ON \
             -DBoost_USE_STATIC_LIBS=OFF \
             -DBoost_USE_MULTITHREADED=ON \
             -DBoost_USE_STATIC_RUNTIME=OFF \
-            -DBoost_COMPONENTS=system,thread,filesystem
+            -DBoost_COMPONENTS=system, thread, filesystem
 
       # 5. Build project
       - name: Build project

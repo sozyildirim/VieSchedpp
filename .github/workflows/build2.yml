@@ -1,66 +1,66 @@
 name: Build VieSched++ macOS
 
 on:
-workflow_dispatch:
+  push:
+    branches: [ main ]
+  workflow_dispatch:  # allows manual trigger
 
 jobs:
-build:
-runs-on: macos-latest
+  build-macos:
+    runs-on: macos-latest
 
-```
-steps:
+    steps:
+      # 1. Checkout source
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
 
-- name: Checkout repository
-  uses: actions/checkout@v4
+      # 2. Install Homebrew and Qt6
+      - name: Install Qt
+        run: |
+          /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+          brew install qt
+        
+      - name: Install Boost
+        run: brew install boost sofa
+    
+      # 3. Install CMake
+      - name: Install build tools
+        run: |
+          brew install cmake git
 
-- name: Install dependencies
-  run: |
-    brew update
-    brew install cmake boost qt
+      # 4. Configure the project
+      - name: Configure project
+        run: |
+          mkdir -p build
+          cd build
+          cmake .. -DCMAKE_PREFIX_PATH=$(brew --prefix qt) \
+            -DUSE_MINIZ=OFF \
+            -DBOOST_ROOT=$(brew --prefix boost) \
+            -DSOFA_ROOT="$(brew --prefix sofa) \
+            -DBoost_NO_BOOST_CMAKE=ON \
+            -DBoost_NO_SYSTEM_PATHS=ON \
+            -DBoost_USE_STATIC_LIBS=OFF \
+            -DBoost_USE_MULTITHREADED=ON \
+            -DBoost_USE_STATIC_RUNTIME=OFF \
+            -DBoost_COMPONENTS=system, thread, filesystem
 
-# -------------------------
-# Build SOFA
-# -------------------------
-- name: Build SOFA
-  run: |
-    git clone https://github.com/Starlink/sofa.git --single-branch --branch=vendor IAU_SOFA
-    cd IAU_SOFA
-    mkdir Release
-    cd src
-    make
-    mv libsofa_c.a ../Release/
+      # 5. Build project
+      - name: Build project
+        run: |
+          cd build
+          make -j$(sysctl -n hw.ncpu)
 
-# -------------------------
-# Build SGP4
-# -------------------------
-- name: Build SGP4
-  run: |
-    git clone https://github.com/dnwrnr/sgp4.git
-    cd sgp4
-    git checkout f5cb54b38
-    mkdir Release
-    cd Release
-    cmake -DCMAKE_BUILD_TYPE=Release ..
-    make
+      # 6. Deploy Qt libraries
+      - name: Deploy Qt
+        run: |
+          cd build
+          /usr/local/opt/qt/bin/macdeployqt VieSched++.app
 
-# -------------------------
-# Build VieSched++
-# -------------------------
-- name: Build VieSched++
-  run: |
-    git clone https://github.com/TUW-VieVS/VieSchedpp.git
-    cd VieSchedpp
-    mkdir Release
-    cd Release
-    cmake -DCMAKE_BUILD_TYPE=Release ..
-    make -j$(sysctl -n hw.ncpu)
-
-# -------------------------
-# Upload binary
-# -------------------------
-- name: Upload artifact
-  uses: actions/upload-artifact@v4
-  with:
-    name: VieSchedpp-macos
-    path: VieSchedpp/Release/VieSchedpp
-```
+      # 7. Upload compiled app
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: VieSched-macos
+          path: build/VieSched++.app

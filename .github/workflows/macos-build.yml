@@ -30,6 +30,16 @@ jobs:
         run: |
           brew install cmake git
 
+
+      - name: Build SOFA 
+        run: | 
+          git clone https://github.com/Starlink/sofa.git --single-branch --branch=vendor IAU_SOFA 
+          cd IAU_SOFA 
+          mkdir Release 
+          cd src 
+          make 
+          mv libsofa_c.a ../Release/
+
       # 4. Configure the project
       - name: Configure project
         run: |

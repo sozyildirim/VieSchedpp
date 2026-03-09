@@ -61,13 +61,13 @@ jobs:
           mkdir -p build
           cd build
           cmake .. \
-           -DCMAKE_PREFIX_PATH=$(brew --prefix qt) \
-           -DCMAKE_BUILD_TYPE=Release \
-           -DIAU_SOFA_DIR=$GITHUB_WORKSPACE/IAU_SOFA/Release \
-           -DSGP4_DIR=$GITHUB_WORKSPACE/SGP4 \
-           -DUSE_MINIZ=OFF \
-           -DBOOST_ROOT=$(brew --prefix boost) \
-           -DCMAKE_CXX_FLAGS="-I$GITHUB_WORKSPACE/SGP4"
+            -DUSE_MINIZ=OFF \
+            -DCMAKE_PREFIX_PATH=$(brew --prefix qt) \
+            -DBOOST_ROOT=$(brew --prefix boost) \
+            -DBoost_NO_BOOST_CMAKE=ON \
+            -DBoost_USE_STATIC_LIBS=OFF \
+            -DBoost_USE_MULTITHREADED=ON \
+            -DBoost_USE_STATIC_RUNTIME=OFF
 
       # 5. Build project
       - name: Build project

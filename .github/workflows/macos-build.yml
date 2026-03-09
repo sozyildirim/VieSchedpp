@@ -45,7 +45,7 @@ jobs:
         run: | 
           rm -rf SGP4
           git clone https://github.com/dnwrnr/sgp4.git SGP4
-          cd sgp4
+          cd SGP4
           git checkout f5cb54b38
           mkdir Release
           cd Release
@@ -57,19 +57,14 @@ jobs:
         run: |
           mkdir -p build
           cd build
-          cmake .. -DCMAKE_PREFIX_PATH=$(brew --prefix qt) \
-            -DCMAKE_BUILD_TYPE=Release \
-            -DIAU_SOFA_DIR=$GITHUB_WORKSPACE/IAU_SOFA/Release \
-            -DSGP4_DIR=$GITHUB_WORKSPACE/sgp4/Release/ \
-            -DUSE_MINIZ=OFF \
-            -DBOOST_ROOT=$(brew --prefix boost) \
-            -DCMAKE_CXX_FLAGS="-I$GITHUB_WORKSPACE" \
-            -DBoost_NO_BOOST_CMAKE=ON \
-            -DBoost_NO_SYSTEM_PATHS=ON \
-            -DBoost_USE_STATIC_LIBS=OFF \
-            -DBoost_USE_MULTITHREADED=ON \
-            -DBoost_USE_STATIC_RUNTIME=OFF \
-            -DBoost_COMPONENTS=system, thread, filesystem
+          cmake .. \
+           -DCMAKE_PREFIX_PATH=$(brew --prefix qt) \
+           -DCMAKE_BUILD_TYPE=Release \
+           -DIAU_SOFA_DIR=$GITHUB_WORKSPACE/IAU_SOFA/Release \
+           -DSGP4_DIR=$GITHUB_WORKSPACE/SGP4/Release/libsgp4 \
+           -DUSE_MINIZ=OFF \
+           -DBOOST_ROOT=$(brew --prefix boost) \
+           -DCMAKE_CXX_FLAGS="-I$GITHUB_WORKSPACE/SGP4/libsgp4"
 
       # 5. Build project
       - name: Build project

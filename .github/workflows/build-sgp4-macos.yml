@@ -1,0 +1,49 @@
+name: Build SGP4 macOS
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build-sgp4:
+    runs-on: macos-latest
+
+    steps:
+      # 1. Checkout repository
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 2. Install build tools
+      - name: Install dependencies
+        run: |
+          brew install cmake git
+
+      # 3. Clone and build SGP4
+      - name: Build SGP4 library
+        run: |
+          rm -rf $GITHUB_WORKSPACE/SGP4
+          git clone https://github.com/dnwrnr/sgp4.git $GITHUB_WORKSPACE/SGP4
+          cd $GITHUB_WORKSPACE/SGP4
+          git checkout f5cb54b38
+          mkdir -p Release
+          cd Release
+          cmake -DCMAKE_BUILD_TYPE=Release ..
+          make
+
+      # 4. Verify build outputs
+      - name: List build outputs
+        run: |
+          echo "Headers and library in SGP4 Release:"
+          ls -R $GITHUB_WORKSPACE/SGP4/Release
+          echo "Headers in SGP4 source:"
+          ls -R $GITHUB_WORKSPACE/SGP4/libsgp4
+          
+      # 5. Upload artifacts (optional)
+      - name: Upload SGP4 artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: sgp4-macos
+          path: |
+            $GITHUB_WORKSPACE/SGP4/Release
+            $GITHUB_WORKSPACE/SGP4/libsgp4

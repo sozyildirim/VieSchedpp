@@ -41,7 +41,8 @@ jobs:
 
 
       - name: Upload SGP4 libraries
-        uses: actions/upload-artifact@v4
+        run: mkdir -p $GITHUB_WORKSPACE/SGP4/Release
+      - uses: actions/upload-artifact@v4
         with:
           name: sgp4-libraries
           path: $GITHUB_WORKSPACE/SGP4/Release/libsgp4

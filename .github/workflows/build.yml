@@ -1,0 +1,23 @@
+name: Build and Upload Release
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Create release folder
+        run: mkdir -p SGP4/Release
+
+      - name: Copy files
+        run: cp -r build/* SGP4/Release/
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: sgp4-release
+          path: SGP4/ReleaseSGP4/Release

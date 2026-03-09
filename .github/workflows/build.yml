@@ -18,6 +18,9 @@ jobs:
           /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
           brew install qt
 
+      - name: Install Boost
+        run: brew install boost
+
       - name: Install tools
         run: |
           brew install cmake git
@@ -26,7 +29,13 @@ jobs:
         run: |
           mkdir build
           cd build
-          cmake .. -DCMAKE_PREFIX_PATH=$(brew --prefix qt)
+          cmake .. \
+           -DCMAKE_PREFIX_PATH=$(brew --prefix qt) \
+           -DBOOST_ROOT=$(brew --prefix boost) \
+           -DBoost_NO_SYSTEM_PATHS=ON \
+           -DBoost_USE_STATIC_LIBS=OFF \
+           -DBoost_USE_MULTITHREADED=ON \
+           -DBoost_USE_STATIC_RUNTIME=OFF
 
       - name: Build project
         run: |

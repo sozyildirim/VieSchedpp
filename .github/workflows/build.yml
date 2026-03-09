@@ -30,6 +30,7 @@ jobs:
           mkdir build
           cd build
           cmake .. \
+           -DUSE_MINIZ=OFF \
            -DCMAKE_PREFIX_PATH=$(brew --prefix qt) \
            -DBOOST_ROOT=$(brew --prefix boost) \
            -DBoost_NO_SYSTEM_PATHS=ON \

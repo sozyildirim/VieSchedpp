@@ -50,7 +50,10 @@ jobs:
           mkdir Release
           cd Release
           cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_POLICY_VERSION_MINIMUM=3.5 ..
-          make sgp4
+          cmake --build . --target sgp4 -- -j$(sysctl -n hw.ncpu)
+          # copy headers to a clean include folder
+          mkdir -p include
+          cp ../libsgp4/*.h include
 
       # 4. Configure the project
       - name: Configure project

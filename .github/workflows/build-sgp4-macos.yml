@@ -29,7 +29,7 @@ jobs:
           mkdir -p Release
           cd Release
           cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_POLICY_VERSION_MINIMUM=3.5 ..
-          make
+          make sgp4
 
       # 4. Verify build outputs
       - name: List build outputs

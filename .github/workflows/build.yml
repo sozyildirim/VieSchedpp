@@ -10,6 +10,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
       - name: Create release folder
         run: mkdir -p SGP4/Release
 
@@ -20,4 +23,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: sgp4-release
-          path: SGP4/ReleaseSGP4/Release
+          path: SGP4/Release

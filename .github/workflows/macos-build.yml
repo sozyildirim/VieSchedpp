@@ -43,7 +43,7 @@ jobs:
 
       - name: Build SGP4
         run: | 
-          rm -rf SGP44
+          rm -rf SGP4
           git clone https://github.com/dnwrnr/sgp4.git SGP4
           cd sgp4
           git checkout f5cb54b38

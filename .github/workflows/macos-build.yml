@@ -64,7 +64,7 @@ jobs:
            -DCMAKE_PREFIX_PATH=$(brew --prefix qt) \
            -DCMAKE_BUILD_TYPE=Release \
            -DIAU_SOFA_DIR=$GITHUB_WORKSPACE/IAU_SOFA/Release \
-           -DSGP4_DIR=$GITHUB_WORKSPACE/SGP4/Release/libsgp4 \
+           -DSGP4_DIR=$GITHUB_WORKSPACE/SGP4 \
            -DUSE_MINIZ=OFF \
            -DBOOST_ROOT=$(brew --prefix boost) \
            -DCMAKE_CXX_FLAGS="-I$GITHUB_REPOSITORY/SGP4"

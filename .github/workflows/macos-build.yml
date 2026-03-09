@@ -50,7 +50,7 @@ jobs:
           mkdir Release
           cd Release
           cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_POLICY_VERSION_MINIMUM=3.5 ..
-          make
+          make sgp4
 
       # 4. Configure the project
       - name: Configure project

@@ -43,8 +43,8 @@ jobs:
 
       - name: Build SGP4
         run: | 
-          rm -rf sgp4
-          git clone https://github.com/dnwrnr/sgp4.git
+          rm -rf SGP44
+          git clone https://github.com/dnwrnr/sgp4.git SGP4
           cd sgp4
           git checkout f5cb54b38
           mkdir Release
@@ -60,7 +60,7 @@ jobs:
           cmake .. -DCMAKE_PREFIX_PATH=$(brew --prefix qt) \
             -DCMAKE_BUILD_TYPE=Release \
             -DIAU_SOFA_DIR=$GITHUB_WORKSPACE/IAU_SOFA/Release \
-            -DSGP4_DIR=$GITHUB_WORKSPACE/sgp4/Release \
+            -DSGP4_DIR=$GITHUB_WORKSPACE/sgp4/Release/libsgp4 \
             -DUSE_MINIZ=OFF \
             -DBOOST_ROOT=$(brew --prefix boost) \
             -DCMAKE_CXX_FLAGS="-I$GITHUB_WORKSPACE" \

@@ -38,7 +38,16 @@ jobs:
           ls -R $GITHUB_WORKSPACE/SGP4/Release
           echo "Headers in SGP4 source:"
           ls -R $GITHUB_WORKSPACE/SGP4/libsgp4
-          
+
+
+      - name: Upload SGP4 libraries
+        uses: actions/upload-artifact@v4
+        with:
+          name: sgp4-libraries
+          path: |
+            $GITHUB_WORKSPACE/SGP4/Release/libsgp4/libsgp4.a
+            $GITHUB_WORKSPACE/SGP4/Release/libsgp4/libsgp4s.dylib
+
       # 5. Upload artifacts (optional)
       - name: Upload SGP4 artifacts
         uses: actions/upload-artifact@v4
@@ -47,3 +56,4 @@ jobs:
           path: |
             $GITHUB_WORKSPACE/SGP4/Release
             $GITHUB_WORKSPACE/SGP4/libsgp4
+

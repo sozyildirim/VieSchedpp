@@ -31,14 +31,7 @@ jobs:
           cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_POLICY_VERSION_MINIMUM=3.5 ..
           make sgp4
 
-      # 4. Verify build outputs
-      - name: List build outputs
-        run: |
-          echo "Headers and library in SGP4 Release:"
-          ls -R $GITHUB_WORKSPACE/SGP4/Release
-          echo "Headers in SGP4 source:"
-          ls -R $GITHUB_WORKSPACE/SGP4/libsgp4
-
+      # 4. Upload build outputs
 
       - name: Upload SGP4 libraries
         run: mkdir -p $GITHUB_WORKSPACE/SGP4/Release
@@ -47,12 +40,4 @@ jobs:
           name: sgp4-libraries
           path: ${{ github.workspace }}/SGP4/Release/libsgp4
 
-      # 5. Upload artifacts (optional)
-      - name: Upload SGP4 artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: sgp4-macos
-          path: |
-            $GITHUB_WORKSPACE/SGP4/Release
-            $GITHUB_WORKSPACE/SGP4/libsgp4
 

@@ -63,6 +63,7 @@ jobs:
             -DSGP4_DIR=$GITHUB_WORKSPACE/sgp4/Release \
             -DUSE_MINIZ=OFF \
             -DBOOST_ROOT=$(brew --prefix boost) \
+            -DCMAKE_CXX_FLAGS="-I$GITHUB_WORKSPACE" \
             -DBoost_NO_BOOST_CMAKE=ON \
             -DBoost_NO_SYSTEM_PATHS=ON \
             -DBoost_USE_STATIC_LIBS=OFF \

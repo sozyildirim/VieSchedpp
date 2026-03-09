@@ -46,7 +46,7 @@ jobs:
           name: sgp4-libraries
           path: |
             $GITHUB_WORKSPACE/SGP4/Release/libsgp4/libsgp4.a
-            $GITHUB_WORKSPACE/SGP4/Release/libsgp4/libsgp4s.dylib
+            $GITHUB_WORKSPACE/SGP4/Release/libsgp4
 
       # 5. Upload artifacts (optional)
       - name: Upload SGP4 artifacts

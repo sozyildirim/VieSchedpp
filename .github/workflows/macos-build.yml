@@ -40,12 +40,26 @@ jobs:
           make 
           mv libsofa_c.a ../Release/
 
+
+      - name: Build SGP4
+        run: | 
+          git clone https://github.com/dnwrnr/sgp4.git
+          cd sgp4
+          git checkout f5cb54b38
+          mkdir Release
+          cd Release
+          cmake -DCMAKE_BUILD_TYPE=Release ..
+          make
+
       # 4. Configure the project
       - name: Configure project
         run: |
           mkdir -p build
           cd build
           cmake .. -DCMAKE_PREFIX_PATH=$(brew --prefix qt) \
+            -DCMAKE_BUILD_TYPE=Release \
+            -DIAU_SOFA_DIR=$GITHUB_WORKSPACE/IAU_SOFA/Release \
+            -DSGP4_DIR=$GITHUB_WORKSPACE/sgp4/Release \
             -DUSE_MINIZ=OFF \
             -DBOOST_ROOT=$(brew --prefix boost) \
             -DBoost_NO_BOOST_CMAKE=ON \

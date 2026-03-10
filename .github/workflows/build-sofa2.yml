@@ -1,4 +1,4 @@
-name: Build SOFA macOS2
+name: Build SOFA macOS
 
 on:
   workflow_dispatch:

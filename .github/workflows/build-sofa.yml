@@ -13,19 +13,17 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Download SOFA
-        run: |
-          curl -L -o sofa.tar.gz https://www.iausofa.org/2023-10-11c/sofa_c-20231011.tar.gz
-          tar -xzf sofa.tar.gz
+      - name: Clone SOFA library
+        run: git clone https://github.com/Starlink/sofa.git
 
-      - name: Compile SOFA
+      - name: Build SOFA
         run: |
-          cd sofa_c-20231011/c/src
+          cd sofa
           clang -c *.c
           ar rcs libsofa.a *.o
 
-      - name: Upload macOS library
+      - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: libsofa-macos
-          path: sofa_c-20231011/c/src/libsofa.a
+          path: sofa/libsofa.a

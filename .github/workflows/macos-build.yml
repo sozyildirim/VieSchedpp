@@ -18,9 +18,7 @@ jobs:
 
       # 2. Install Homebrew and Qt6
       - name: Install Qt
-        run: |
-          /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-          brew install qt
+        run: brew install qt
         
       - name: Install Boost
         run: brew install boost

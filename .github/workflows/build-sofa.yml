@@ -18,7 +18,7 @@ jobs:
 
       - name: Build SOFA
         run: |
-          cd sofa
+          cd sofa/c/src
           clang -c *.c
           ar rcs libsofa.a *.o
 

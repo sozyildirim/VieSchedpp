@@ -27,5 +27,5 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: sofa-macos
-          path: ${{ github.workspace }}/IAU_SOFA/libsofa_c.a
+          path: ${{ github.workspace }}/IAU_SOFA/Release/libsofa_c.a
 

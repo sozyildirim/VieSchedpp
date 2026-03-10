@@ -1,4 +1,4 @@
-name: Build VieSched++ macOS
+name: Build VieSched++ macOS2
 
 on:
   push:
@@ -12,43 +12,73 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          submodules: recursive
 
+      # Install dependencies
       - name: Install Qt
-        run: |
-          /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-          brew install qt
+        run: brew install qt
 
       - name: Install Boost
         run: brew install boost
 
-      - name: Install tools
-        run: |
-          brew install cmake git
+      - name: Install build tools
+        run: brew install cmake git
 
+      # Build SOFA
+      - name: Build SOFA
+        run: |
+          git clone https://github.com/Starlink/sofa.git --single-branch --branch=vendor IAU_SOFA
+          cd IAU_SOFA
+          mkdir Release
+          cd src
+          make
+          mv libsofa_c.a ../Release/
+
+      # Build SGP4
+      - name: Build SGP4
+        run: |
+          git clone https://github.com/dnwrnr/sgp4.git SGP4
+          cd SGP4
+          git checkout f5cb54b38
+          mkdir Release
+          cd Release
+          cmake -DCMAKE_BUILD_TYPE=Release ..
+          make -j$(sysctl -n hw.ncpu)
+
+      # Configure project
       - name: Configure project
         run: |
           mkdir build
           cd build
           cmake .. \
-           -DUSE_MINIZ=OFF \
-           -DCMAKE_PREFIX_PATH=$(brew --prefix qt) \
-           -DBOOST_ROOT=$(brew --prefix boost) \
-           -DBoost_NO_SYSTEM_PATHS=ON \
-           -DBoost_USE_STATIC_LIBS=OFF \
-           -DBoost_USE_MULTITHREADED=ON \
-           -DBoost_USE_STATIC_RUNTIME=OFF
+            -DUSE_MINIZ=OFF \
+            -DCMAKE_PREFIX_PATH=$(brew --prefix qt) \
+            -DBOOST_ROOT=$(brew --prefix boost) \
+            -DBoost_NO_BOOST_CMAKE=ON \
+            -DBoost_USE_STATIC_LIBS=OFF \
+            -DBoost_USE_MULTITHREADED=ON \
+            -DBoost_USE_STATIC_RUNTIME=OFF \
+            -DBoost_COMPONENTS="system thread filesystem log log_setup" \
+            -DSGP4_INCLUDE_DIR=$GITHUB_WORKSPACE/SGP4/libsgp4 \
+            -DSGP4_LIBRARY=$GITHUB_WORKSPACE/SGP4/Release/libsgp4/libsgp4.a \
+            -DSOFA_INCLUDE_DIR=$GITHUB_WORKSPACE/IAU_SOFA/src \
+            -DSOFA_LIBRARY=$GITHUB_WORKSPACE/IAU_SOFA/Release/libsofa_c.a
 
+      # Build
       - name: Build project
         run: |
           cd build
           make -j$(sysctl -n hw.ncpu)
 
-      - name: Deploy Qt libraries
+      # Deploy Qt
+      - name: Deploy Qt
         run: |
           cd build
           /usr/local/opt/qt/bin/macdeployqt VieSched++.app
 
-      - name: Upload compiled app
+      # Upload app
+      - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: VieSched-macos

@@ -64,8 +64,7 @@ jobs:
             -DBoost_NO_BOOST_CMAKE=ON \
             -DBoost_USE_STATIC_LIBS=OFF \
             -DBoost_USE_MULTITHREADED=ON \
-            -DBoost_USE_STATIC_RUNTIME=OFF \
-            -DSGP4_LIBRARY=$GITHUB_WORKSPACE/SGP4/Release/libsgp4
+            -DBoost_USE_STATIC_RUNTIME=OFF 
 
 
       # 5. Build project

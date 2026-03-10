@@ -20,9 +20,9 @@ jobs:
           make 
           mv libsofa_c.a ../Release/
 
-
       - name: Upload library
         uses: actions/upload-artifact@v4
         with:
           name: sofa-macos
-          path: IAU_SOFA/libsofa_c.a
+          path: ${{ github.workspace }}/IAU_SOFA/libsofa_c.a
+

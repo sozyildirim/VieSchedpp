@@ -21,7 +21,7 @@ jobs:
           mv libsofa_c.a ../Release/
       
       - name: Verify library
-        run: ls -l ${{ github.workspace }}/SGP4/Release/libsgp4
+        run: ls -l ${{ github.workspace }}/IAU_SOFA
 
       - name: Upload library
         uses: actions/upload-artifact@v4

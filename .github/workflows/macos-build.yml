@@ -53,7 +53,7 @@ jobs:
           cmake --build . --target sgp4 -- -j$(sysctl -n hw.ncpu)
           # copy headers to a clean include folder
           mkdir -p include
-          cp ../libsgp4/*.h include
+          cp ../libsgp4/*.h include    
 
       # 4. Configure the project
       - name: Configure project
@@ -67,7 +67,11 @@ jobs:
             -DBoost_NO_BOOST_CMAKE=ON \
             -DBoost_USE_STATIC_LIBS=OFF \
             -DBoost_USE_MULTITHREADED=ON \
-            -DBoost_USE_STATIC_RUNTIME=OFF
+            -DBoost_USE_STATIC_RUNTIME=OFF \
+            -DSOFA_LIBRARY=$GITHUB_WORKSPACE/IAU_SOFA/Release/libsofa_c.a \
+            -DSGP4_LIBRARY=$GITHUB_WORKSPACE/SGP4/Release/libsgp4/libsgp4.a \
+            -DSGP4_INCLUDE_DIR=$GITHUB_WORKSPACE/SGP4/include
+
 
       # 5. Build project
       - name: Build project

@@ -1,0 +1,24 @@
+name: Build SOFA macOS
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: macos-latest
+
+    steps:
+      - name: Clone SOFA
+        run: |
+          git clone https://github.com/Starlink/sofa.git --single-branch --branch=vendor IAU_SOFA
+
+      - name: Build SOFA
+        run: |
+          cd IAU_SOFA
+          make
+
+      - name: Upload library
+        uses: actions/upload-artifact@v4
+        with:
+          name: sofa-macos
+          path: IAU_SOFA/libsofa_c.a

@@ -65,8 +65,7 @@ jobs:
             -DBoost_USE_STATIC_LIBS=OFF \
             -DBoost_USE_MULTITHREADED=ON \
             -DBoost_USE_STATIC_RUNTIME=OFF \
-            -DSOFA_LIBRARY=$GITHUB_WORKSPACE/IAU_SOFA/Release/libsofa_c.a \
-            -DSGP4_LIBRARY=$GITHUB_WORKSPACE/SGP4/Release/libsgp4/libsgp4.a \
+            -DSGP4_LIBRARY=$GITHUB_WORKSPACE/SGP4/Release/libsgp4/libsgp4.a 
 
 
       # 5. Build project

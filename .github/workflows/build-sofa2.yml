@@ -1,4 +1,4 @@
-name: Build SOFA macOS
+name: Build SOFA macOS2
 
 on:
   workflow_dispatch:
@@ -19,6 +19,9 @@ jobs:
           cd src 
           make 
           mv libsofa_c.a ../Release/
+      
+      - name: Verify library
+        run: ls -l ${{ github.workspace }}/SGP4/Release/libsgp4
 
       - name: Upload library
         uses: actions/upload-artifact@v4

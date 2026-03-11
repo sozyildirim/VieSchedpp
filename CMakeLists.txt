@@ -158,7 +158,7 @@
  # ------------------------------------------------------------------------------
  # SOFA
  # ------------------------------------------------------------------------------
- set(PATH_IAU_SOFA "../IAU_SOFA/Release/" CACHE PATH "Path to IAU SOFA library")
+ set(PATH_IAU_SOFA "${PROJECT_SOURCE_DIR}/IAU_SOFA/Release/" CACHE PATH "Path to IAU SOFA library")
  find_library(SOFA_LIB
          NAMES sofa_c libsofa_c.a libsofa_c.lib
          HINTS ${PATH_IAU_SOFA}

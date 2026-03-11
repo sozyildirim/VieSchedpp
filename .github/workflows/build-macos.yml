@@ -44,7 +44,7 @@ jobs:
       - name: Deploy Qt libraries
         run: |
           cd build
-          /usr/local/opt/qt/bin/macdeployqt VieSched++.app
+          $(brew --prefix qt)/bin/macdeployqt VieSched++.app
 
       - name: Upload compiled app
         uses: actions/upload-artifact@v4

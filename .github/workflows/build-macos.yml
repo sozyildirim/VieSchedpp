@@ -1,0 +1,45 @@
+name: Build VieSched++ macOS3
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build-macos:
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Qt
+        run: |
+          /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+          brew install qt
+
+      - name: Install tools
+        run: |
+          brew install cmake git
+
+      - name: Configure project
+        run: |
+          mkdir build
+          cd build
+          cmake .. -DCMAKE_PREFIX_PATH=$(brew --prefix qt)
+
+      - name: Build project
+        run: |
+          cd build
+          make -j$(sysctl -n hw.ncpu)
+
+      - name: Deploy Qt libraries
+        run: |
+          cd build
+          /usr/local/opt/qt/bin/macdeployqt VieSched++.app
+
+      - name: Upload compiled app
+        uses: actions/upload-artifact@v4
+        with:
+          name: VieSched-macos
+          path: build/VieSched++.app

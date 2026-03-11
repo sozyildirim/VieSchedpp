@@ -44,7 +44,16 @@ jobs:
       - name: Deploy Qt libraries
         run: |
           cd build
-          $(brew --prefix qt)/bin/macdeployqt VieSchedpp.app
+          export PATH=$(brew --prefix qt)/bin:$PATH
+          macdeployqt VieSchedpp.app
+
+
+    
+      - name: Upload compiled app
+        uses: actions/upload-artifact@v4
+        with:
+          name: VieSched-macos
+          path: build/VieSchedpp.app
 
       - name: Upload compiled app
         uses: actions/upload-artifact@v4

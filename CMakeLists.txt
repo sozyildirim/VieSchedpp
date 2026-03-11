@@ -35,10 +35,7 @@
  # Create target
  # ------------------------------------------------------------------------------
  add_executable(VieSchedpp)
- target_link_libraries(VieSchedpp
-    ${PROJECT_SOURCE_DIR}/SGP4/Release/libsgp4.a
-    ${PROJECT_SOURCE_DIR}/sofa/libsofa.a
-)
+
 
  # ------------------------------------------------------------------------------
  # Source files

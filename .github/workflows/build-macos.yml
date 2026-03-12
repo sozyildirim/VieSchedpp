@@ -24,6 +24,11 @@ jobs:
       - name: Install Qt
         run: brew install qt
 
+      - name: Inspect Qt installation
+        run: |
+          brew --prefix qt
+          ls -R $(brew --prefix qt)
+
       - name: Install Boost
         run: brew install boost
         

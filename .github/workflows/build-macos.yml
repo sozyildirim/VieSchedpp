@@ -61,6 +61,10 @@ jobs:
           find $(brew --prefix qt) -name macdeployqt
 
 
+      - name: Inspect macdeployqt dependencies
+        run: |
+          otool -L /opt/homebrew/opt/qt/bin/macdeployqt6
+
       - name: Debug Qt tools
         run: |
           echo "PATH=$PATH"

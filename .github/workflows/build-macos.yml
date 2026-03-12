@@ -71,9 +71,7 @@ jobs:
       - name: Deploy Qt libraries
         run: |
           cd build
-          APP=$(find . -name "*.app" -type d | head -n 1)
-          echo "Found app: $APP"
-          /opt/homebrew/opt/qt/bin/macdeployqt6 "$APP"
+          /opt/homebrew/opt/qt/bin/macdeployqt6 $GITHUB_WORKSPACE/build/VieSchedpp.app
           
       - name: Upload compiled app
         uses: actions/upload-artifact@v4

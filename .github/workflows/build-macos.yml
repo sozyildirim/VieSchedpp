@@ -70,8 +70,7 @@ jobs:
       - name: Deploy Qt libraries
         run: |
           cd build
-          QT_BIN=$(brew --prefix qt)/bin
-          $QT_BIN/macdeployqt VieSchedpp.app
+          /opt/homebrew/opt/qt/bin/macdeployqt VieSchedpp.app
           
       - name: Upload compiled app
         uses: actions/upload-artifact@v4

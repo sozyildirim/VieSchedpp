@@ -71,6 +71,7 @@ jobs:
       - name: Deploy Qt libraries
         run: |
           cd build
+          export DYLD_FRAMEWORK_PATH=/opt/homebrew/opt/qt/lib
           /opt/homebrew/opt/qt/bin/macdeployqt $GITHUB_WORKSPACE/build/VieSchedpp.app
           
       - name: Upload compiled app

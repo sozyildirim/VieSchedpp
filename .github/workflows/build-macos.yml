@@ -71,7 +71,7 @@ jobs:
       - name: Deploy Qt libraries
         run: |
           cd build
-          /opt/homebrew/opt/qt/bin/macdeployqt6 $GITHUB_WORKSPACE/build/VieSchedpp.app
+          /opt/homebrew/opt/qt/bin/macdeployqt $GITHUB_WORKSPACE/build/VieSchedpp.app
           
       - name: Upload compiled app
         uses: actions/upload-artifact@v4

@@ -13,16 +13,17 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         
-      - name: Cache Qt
-        uses: actions/cache@v4
-        with:
-          path: |
-            /opt/homebrew/Cellar/qt
-            /opt/homebrew/opt/qt
-          key: ${{ runner.os }}-qt
+#      - name: Cache Qt
+#        uses: actions/cache@v4
+#        with:
+#          path: |
+#            /opt/homebrew/Cellar/qt
+#            /opt/homebrew/opt/qt
+#          key: ${{ runner.os }}-qt
           
       - name: Install Qt
-        run: brew install qt
+#        run: brew install qt
+        run: jurplel/install-qt-action
         
       - name: Add Qt to PATH
         run: echo "$(brew --prefix qt)/bin" >> $GITHUB_PATH

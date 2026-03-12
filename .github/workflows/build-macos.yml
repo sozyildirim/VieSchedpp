@@ -12,7 +12,15 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-
+        
+      - name: Cache Qt
+        uses: actions/cache@v4
+        with:
+          path: |
+            /opt/homebrew/Cellar/qt
+            /opt/homebrew/opt/qt
+          key: ${{ runner.os }}-qt
+          
       - name: Install Qt
         run: brew install qt
 

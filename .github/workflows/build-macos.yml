@@ -66,11 +66,14 @@ jobs:
           echo "PATH=$PATH"
           which macdeployqt || echo "macdeployqt not found"
           ls $(brew --prefix qt)/bin/macdeployqt
-    
+
+
       - name: Deploy Qt libraries
         run: |
           cd build
-          /opt/homebrew/opt/qt/bin/macdeployqt VieSchedpp.app
+          APP=$(find . -name "*.app" -type d | head -n 1)
+          echo "Found app: $APP"
+          $(brew --prefix qt)/bin/macdeployqt "$APP"
           
       - name: Upload compiled app
         uses: actions/upload-artifact@v4

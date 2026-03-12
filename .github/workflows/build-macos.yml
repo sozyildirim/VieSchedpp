@@ -46,7 +46,11 @@ jobs:
         run: |
           cd build
           make -j$(sysctl -n hw.ncpu)
-
+      - name: Locate macdeployqt
+        run: |
+          echo "Looking for macdeployqt..."
+          find $(brew --prefix qt) -name macdeployqt
+          
       - name: Deploy Qt libraries
         run: |
           cd build

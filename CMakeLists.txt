@@ -18,6 +18,11 @@
 
  cmake_minimum_required(VERSION 3.15)
  project(VieSchedpp LANGUAGES CXX C)
+
+ SET(CMAKE_SKIP_BUILD_RPATH FALSE)
+ SET(CMAKE_BUILD_WITH_INSTALL_RPATH TRUE)
+ SET(CMAKE_INSTALL_RPATH "${ORIGIN}")
+
  message(STATUS "Build type: ${CMAKE_BUILD_TYPE}")
  message(STATUS "CMake version: ${CMAKE_VERSION}")
  message(STATUS "CMake generator: ${CMAKE_GENERATOR}")

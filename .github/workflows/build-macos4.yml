@@ -46,7 +46,7 @@ jobs:
         run: |
           mkdir build
           cd build
-          cmake .. -DCMAKE_PREFIX_PATH=$(brew --prefix qt)
+          cmake .. -DCMAKE_PREFIX_PATH=$Qt6_DIR
 
       - name: Show repository structure
         run: |

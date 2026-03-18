@@ -29,13 +29,11 @@ jobs:
           host: 'mac'
           target: 'desktop'
         
-      - name: Add Qt to PATH
-        run: echo "$(brew --prefix qt)/bin" >> $GITHUB_PATH
-
-      - name: Inspect Qt installation
-        run: |
-          brew --prefix qt
-          ls -R $(brew --prefix qt)
+       - name: Debug Qt Path
+         run: |
+           echo "Qt dir: $Qt6_DIR"
+           which qmake
+           qmake -query
 
       - name: Install Boost
         run: brew install boost

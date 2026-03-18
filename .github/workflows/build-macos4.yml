@@ -57,29 +57,12 @@ jobs:
         run: |
           cd build
           make -j$(sysctl -n hw.ncpu)
-          
-      - name: Locate macdeployqt
-        run: |
-          echo "Looking for macdeployqt..."
-          find $(brew --prefix qt) -name macdeployqt
-
-
-      - name: Inspect macdeployqt dependencies
-        run: |
-          otool -L /opt/homebrew/opt/qt/bin/macdeployqt6
-
-      - name: Debug Qt tools
-        run: |
-          echo "PATH=$PATH"
-          which macdeployqt || echo "macdeployqt not found"
-          ls $(brew --prefix qt)/bin/macdeployqt
 
 
       - name: Deploy Qt libraries
         run: |
           cd build
-          export DYLD_FRAMEWORK_PATH=/opt/homebrew/opt/qt/lib
-          /opt/homebrew/opt/qt/bin/macdeployqt $GITHUB_WORKSPACE/build/VieSchedpp.app -verbose=1
+          macdeployqt $GITHUB_WORKSPACE/build/VieSchedpp.app -verbose=1
           
       - name: Upload compiled app
         uses: actions/upload-artifact@v4

@@ -88,3 +88,6 @@ jobs:
         run: |
           otool -L build/VieSchedpp.app/Contents/MacOS/VieSchedpp
           
+      - name: Smoke test
+        run: |
+          ./build/VieSchedpp.app/Contents/MacOS/VieSchedpp --help || true

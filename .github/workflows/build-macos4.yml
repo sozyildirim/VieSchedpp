@@ -90,4 +90,4 @@ jobs:
           
       - name: Smoke test
         run: |
-          ./build/VieSchedpp.app/Contents/MacOS/VieSchedpp --help || true
+          ./build/VieSchedpp.app/Contents/MacOS/VieSchedpp --help

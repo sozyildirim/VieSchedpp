@@ -71,7 +71,7 @@ jobs:
         run: |
           cd build
           #macdeployqt VieSchedpp.app -verbose=1
-          macdeployqt $GITHUB_WORKSPACE/build/VieSchedpp.app -verbose=3
+          macdeployqt VieSchedpp.app -verbose=3
 
       - name: Code sign app
         run: |

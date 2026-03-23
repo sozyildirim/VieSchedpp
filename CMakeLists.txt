@@ -19,6 +19,8 @@
  cmake_minimum_required(VERSION 3.15)
  project(VieSchedpp LANGUAGES CXX C)
 
+ find_package(Qt6 REQUIRED COMPONENTS Core Gui Widgets)
+
  message(STATUS "Build type: ${CMAKE_BUILD_TYPE}")
  message(STATUS "CMake version: ${CMAKE_VERSION}")
  message(STATUS "CMake generator: ${CMAKE_GENERATOR}")
@@ -36,6 +38,13 @@
  # Create target
  # ------------------------------------------------------------------------------
  add_executable(VieSchedpp  MACOSX_BUNDLE)
+
+ target_link_libraries(VieSchedpp
+    PRIVATE
+    Qt6::Core
+    Qt6::Gui
+    Qt6::Widgets
+)
 
 
  # ------------------------------------------------------------------------------

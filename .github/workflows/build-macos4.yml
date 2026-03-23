@@ -91,6 +91,7 @@ jobs:
 
       - name: Check dependencies
         run: |
+          ls -R build/VieSchedpp.app/Contents/Frameworks
           otool -L build/VieSchedpp.app/Contents/MacOS/VieSchedpp
           
       - name: Smoke test

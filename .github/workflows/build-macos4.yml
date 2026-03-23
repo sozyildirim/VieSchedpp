@@ -82,12 +82,19 @@ jobs:
         run: |
           cd build
           macdeployqt VieSchedpp.app -verbose=1
-          
+
+
+      - name: Package app
+        run: |
+          cd build
+          zip -r VieSchedpp-macos.zip VieSchedpp.app
+
+    
       - name: Upload compiled app
         uses: actions/upload-artifact@v4
         with:
           name: VieSched-macos
-          path: build/VieSchedpp.app
+          path: build/VieSchedpp-macos.zip
 
           
 

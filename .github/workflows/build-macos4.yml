@@ -61,11 +61,11 @@ jobs:
 
           cp $BOOST_LIB/libboost*.dylib $APP/Contents/Frameworks/ || true
 
-      - name: Fix rpath
-        run: |
-          BINARY=build/VieSchedpp.app/Contents/MacOS/VieSchedpp
-          install_name_tool -add_rpath "@executable_path/../Frameworks" "$BINARY" || true
-
+#      - name: Fix rpath
+#        run: |
+#          BINARY=build/VieSchedpp.app/Contents/MacOS/VieSchedpp
+#          install_name_tool -add_rpath "@executable_path/../Frameworks" "$BINARY" || true
+#
 
       - name: Deploy Qt libraries
         run: |

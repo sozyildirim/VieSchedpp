@@ -59,16 +59,6 @@ jobs:
           make -j$(sysctl -n hw.ncpu)
 
 
-      - name: Deploy Qt libraries
-        run: |
-          cd build
-          macdeployqt $GITHUB_WORKSPACE/build/VieSchedpp.app -verbose=1
-          
-      - name: Upload compiled app
-        uses: actions/upload-artifact@v4
-        with:
-          name: VieSched-macos
-          path: build/VieSchedpp.app
 
       - name: Bundle Boost libraries
         run: |
@@ -83,6 +73,23 @@ jobs:
         run: |
           BINARY=build/VieSchedpp.app/Contents/MacOS/VieSchedpp
           install_name_tool -add_rpath "@executable_path/../Frameworks" "$BINARY" || true
+
+      - name: Code sign app
+        run: |
+          codesign --force --deep --sign - build/VieSchedpp.app
+
+      - name: Deploy Qt libraries
+        run: |
+          cd build
+          macdeployqt $GITHUB_WORKSPACE/build/VieSchedpp.app -verbose=1
+          
+      - name: Upload compiled app
+        uses: actions/upload-artifact@v4
+        with:
+          name: VieSched-macos
+          path: build/VieSchedpp.app
+
+          
 
       - name: Check dependencies
         run: |

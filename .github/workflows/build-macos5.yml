@@ -1,4 +1,4 @@
-name: Build VieSched++ macOS4
+name: Build VieSched++ macOS5
 
 on:
   push:
